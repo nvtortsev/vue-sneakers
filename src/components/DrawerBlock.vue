@@ -18,7 +18,7 @@ const createOrder = async () => {
   try {
     const { data } = await axios.post('https://73c2f1e0d79b39f9.mokky.dev/orders', {
       items: cart.value,
-      totalPrice: props.totalPrice.value
+      totalPrice: props.totalPrice
     })
 
     cart.value = []
@@ -32,7 +32,7 @@ const createOrder = async () => {
 
 <template>
   <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70"></div>
-  <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8">
+  <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8 overflow-y-scroll no-scrollbar">
     <DrawerHead />
 
     <div v-if="!totalPrice || orderId" class="flex h-full items-center">

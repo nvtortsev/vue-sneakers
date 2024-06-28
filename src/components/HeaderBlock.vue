@@ -33,7 +33,7 @@ const emit = defineEmits(['openDrawer'])
         </li>
       </RouterLink>
 
-      <RouterLink to="profile">
+      <RouterLink to="/orders">
         <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
           <img src="/profile.svg" alt="cart" />
           <span>Профиль</span>

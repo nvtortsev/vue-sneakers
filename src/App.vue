@@ -49,11 +49,7 @@ provide('cart', {
 </script>
 
 <template>
-  <DrawerBlock
-    v-if="drawerOpen"
-    :total-price="totalPrice"
-    :vat-price="vatPrice"
-  />
+  <DrawerBlock v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" />
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl mt-14 mb-14">
     <HeaderBlock @open-drawer="openDrawer" :total-price="totalPrice" />
     <div class="p-10">
