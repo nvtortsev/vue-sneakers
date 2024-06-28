@@ -6,35 +6,48 @@ import { useRoute } from 'vue-router'
 import CardList from '../components/CardList.vue'
 
 const route = useRoute()
-const url_param = ref(NaN)
+const url_param = ref(null)
+const isLoading = ref(false)
 
 const orders = ref([])
 const items = ref([])
 
+const findOrders = () => {
+  items.value = orders.value.find((order) => order.id === url_param.value)
+}
 const fetchOrders = async () => {
   try {
+    isLoading.value = true
+    url_param.value = Number(route.params.id)
     const { data } = await axios.get('https://73c2f1e0d79b39f9.mokky.dev/orders')
     orders.value = data.map((order) => {
       return order
     })
+    findOrders()
   } catch (error) {
     console.log(error)
+  } finally {
+    isLoading.value = false
   }
 }
 onMounted(async () => {
   await fetchOrders()
 })
+
 watch(route, () => {
   url_param.value = Number(route.params.id)
-  items.value = orders.value.find((order) => order.id === url_param.value)
+  findOrders()
 })
 </script>
 
 <template>
   <h2 class="text-3xl font-bold mb-8">Мои покупки</h2>
 
-  <div v-if="!orders.length" class="flex flex-col items-center gap-3 text-center">
-    <img width="70" src="/emoji-1.png" alt="emoji" />
+  <div
+    v-if="!orders.length && isLoading == false"
+    class="flex flex-col items-center gap-3 text-center"
+  >
+    <img width="70" src="/emoji-2.png" alt="emoji" />
     <h2 class="font-bold text-2xl">У вас нет заказов</h2>
     <p class="text-slate-400">Вы нищеброд? <br />Оформите хотя бы один заказ.</p>
     <RouterLink to="/"

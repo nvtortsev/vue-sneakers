@@ -5,9 +5,11 @@ import { onMounted, ref } from 'vue'
 import CardList from '../components/CardList.vue'
 
 const favorites = ref([])
+const isLoading = ref(false)
 
 const fetchFavorites = async () => {
   try {
+    isLoading.value = true
     const { data } = await axios.get(
       'https://73c2f1e0d79b39f9.mokky.dev/favorites?_relations=items'
     )
@@ -16,6 +18,8 @@ const fetchFavorites = async () => {
     })
   } catch (error) {
     console.log(error)
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -27,7 +31,7 @@ onMounted(async () => {
 <template>
   <h2 class="text-3xl font-bold mb-8">Закладки</h2>
 
-  <div v-if="!favorites.length" class="flex flex-col items-center gap-3">
+  <div v-if="!favorites.length && isLoading == false" class="flex flex-col items-center gap-3">
     <img width="70" src="/emoji-1.png" alt="emoji" />
     <h2 class="font-bold text-2xl">Закладок нет :(</h2>
     <p class="text-slate-400">Вы ничего не добавляли в закладки</p>
