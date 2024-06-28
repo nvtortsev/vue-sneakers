@@ -120,9 +120,9 @@ watch(filters, fetchItems)
 </script>
 
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center max-xl:flex-col">
     <h2 class="text-3xl font-bold mb-8">Все кроссовки</h2>
-    <div class="flex gap-4">
+    <div class="flex gap-4 max-md:flex-col">
       <select
         @change="onChangeSelect"
         class="py-1.5 px-3 border rounded-md outline-none cursor-pointer"

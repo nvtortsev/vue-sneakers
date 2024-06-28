@@ -10,7 +10,7 @@ const emit = defineEmits(['addToFavorite', 'onClickAddPlus'])
 </script>
 
 <template>
-  <div v-auto-animate class="grid grid-cols-4 gap-5 mt-10">
+  <div v-auto-animate class="grid grid-cols-4 gap-5 mt-10 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:flex flex-col">
     <CardBlock
       v-for="item in items"
       :key="item.id"

@@ -84,7 +84,7 @@ watch(route, () => {
 
   <div v-if="!url_param" v-auto-animate class="flex flex-col gap-6">
     <div
-      class="border flex gap-10 rounded-md p-5 cursor-pointer items-center w-max"
+      class="border flex gap-10 rounded-md p-5 cursor-pointer items-center w-max max-sm:w-fit"
       v-for="order in orders"
       :key="order.id"
     >
