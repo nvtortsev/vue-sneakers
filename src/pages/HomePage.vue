@@ -2,9 +2,9 @@
 import { inject, reactive, watch, ref, onMounted } from 'vue'
 import axios from 'axios'
 import CardList from '../components/CardList.vue'
+import debounce from 'lodash.debounce'
 
 const { cart, addToCart, removeToCart } = inject('cart')
-
 const items = ref([])
 
 const filters = reactive({
@@ -16,9 +16,9 @@ const onChangeSelect = (event) => {
   filters.sortBy = event.target.value
 }
 
-const onChangeSearch = (event) => {
+const onChangeSearch = debounce((event) => {
   filters.searchQuery = event.target.value
-}
+}, 200)
 
 const onClickAddPlus = (item) => {
   if (!item.isAdded) {
@@ -134,7 +134,7 @@ watch(filters, fetchItems)
       <div class="relative">
         <img class="absolute left-3 top-2.5" src="/search.svg" alt="Search" />
         <input
-          @change="onChangeSearch"
+          @input="onChangeSearch"
           class="border rounded-md py-1.5 pl-11 pr-4 outline-none focus:border-gray-400"
           type="text"
           placeholder="Поиск"

@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch, provide, computed } from 'vue'
-import axios from 'axios'
 
 import HeaderBlock from './components/HeaderBlock.vue'
 import DrawerBlock from './components/DrawerBlock.vue'
@@ -31,21 +30,6 @@ const removeToCart = (item) => {
   item.isAdded = false
 }
 
-const createOrder = async () => {
-  try {
-    const { data } = await axios.post('https://73c2f1e0d79b39f9.mokky.dev/orders', {
-      items: cart.value,
-      totalPrice: totalPrice.value
-    })
-
-    cart.value = []
-
-    console.log(data)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 watch(
   cart,
   () => {
@@ -69,7 +53,6 @@ provide('cart', {
     v-if="drawerOpen"
     :total-price="totalPrice"
     :vat-price="vatPrice"
-    @create-order="createOrder"
   />
   <div class="w-4/5 m-auto bg-white rounded-xl shadow-xl mt-14 mb-14">
     <HeaderBlock @open-drawer="openDrawer" :total-price="totalPrice" />
